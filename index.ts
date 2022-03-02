@@ -1,29 +1,26 @@
-const zod = require('zod')
+import type {TypeOf} from 'zod'
+import {z} from 'zod'
 
-const recordZ = zod.record(zod.string());
+const recordZ = z.record(z.string());
+type TypeOfParser = TypeOf<typeof recordZ>
+
+const recordWithAllStrings: TypeOfParser = {
+  'test-key-1': 'test-value-1',
+  'test-key-2': 'test-value-2',
+}
 
 console.log(
     'Record with all string values:',
-    recordZ.safeParse({
-        'test-key-1': 'test-value-1',
-        'test-key-2': 'test-value-2',
-    }).success
+    recordZ.safeParse(recordWithAllStrings).success
 )
 
-console.log(
-    'Record with null value:',
-    recordZ.safeParse({
-        'test-key-1': 'test-value-1',
-        'test-key-2': 'test-value-2',
-        'test-key-3': null
-    }).success
-)
+const recordWithUndefined: TypeOfParser = {
+  'test-key-1': 'test-value-1',
+  'test-key-2': 'test-value-2',
+  'test-key-3': undefined,
+}
 
 console.log(
-    'Record with undefined value:',
-    recordZ.safeParse({
-        'test-key-1': 'test-value-1',
-        'test-key-2': 'test-value-2',
-        'test-key-3': undefined,
-    }).success
+  'Record with undefined value:',
+  recordZ.safeParse(recordWithUndefined).success
 )

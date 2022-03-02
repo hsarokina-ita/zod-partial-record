@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "ts-node index.ts",
+    "typecheck": "tsc --noEmit index.ts"
   },
   "dependencies": {
     "zod": "3.13.2"
